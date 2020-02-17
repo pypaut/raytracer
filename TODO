@@ -1,0 +1,72 @@
+[ ] - Bugtracker
+    [ ] - Implement classes within .hh files, delete .cc files
+    [ ] - operator<< within classes (need private attributes
+
+
+[ ] - Classes
+    [ ] - Point3
+        [X] - header
+        [X] - source
+        [X] - print
+    [ ] - Vector3
+        [X] - header
+        [X] - source
+        [X] - operator*
+        [X] - operator+
+        [X] - operator-
+        [X] - print
+    [ ] - ColorRGB
+        [X] - header
+        [X] - source
+        [X] - print
+    [ ] - Image
+        [X] - header
+        [X] - source
+        [ ] - print
+        [X] - Largeur, hauteur, pixels
+        [/] - ppm export
+    [ ] - Scene
+        [X] - header
+        [ ] - source
+        [ ] - print
+        [X] - objects
+        [X] - sources
+        [X] - camera
+    [ ] - Texture_Material (abstract)
+        [X] - header
+        [X] - source
+        [ ] - print
+        [ ] - virtual method : pos -> texture/material properties
+    [ ] - Uniform_Texture < Texture_Material
+        [X] - header
+        [X] - source
+        [ ] - print
+        [X] - override virtual method to return fixed properties
+    [ ] - Object (abstract)
+        [X] - header
+        [ ] - source
+        [ ] - print
+        [X] - virtual method : rayon -> bool, intersects or not
+        [X] - virtual method : pos -> vector3, give normal
+        [X] - virtual method : pos -> texture
+    [ ] - Sphere < Object
+        [X] - header
+        [X] - source
+        [ ] - print
+        [/] - override methods
+    [ ] - Light (abstract)
+    [ ] - Point_Light < Light
+        [X] - header
+        [ ] - source
+    [X] - Camera
+        [ ] - header
+        [ ] - source
+        [X] - center
+        [X] - forward
+        [X] - upward
+        [X] - reading_field_x
+        [X] - reading_field_y
+        [X] - z_min (image plan)
+
+[ ] - Tests
+    [ ] - PPM export
