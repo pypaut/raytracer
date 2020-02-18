@@ -9,9 +9,12 @@ int main(int argc, char *argv[])
     int H = 600;
 
     std::vector<ColorRGB> pixels;
+
     for (int i = 0; i < W * H; ++i)
     {
-        pixels.push_back(ColorRGB(255, 255, 255));
+        std::cout << "Color" << std::endl;
+        ColorRGB color = ColorRGB(255, 255, 255);
+        pixels.push_back(color);
     }
 
     return 0;

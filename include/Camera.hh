@@ -18,15 +18,15 @@ class Camera
             forward_ = forward;
             upward_ = upward;
             read_field_x_ = read_field_x;
-            read_field_y_ = read_field_y_;
+            read_field_y_ = read_field_y;
             z_min_ = z_min;
         }
 
         ~Camera()
         {
-            delete center_;
-            delete forward_;
-            delete upward_;
+            // delete center_;
+            // delete forward_;
+            // delete upward_;
             delete this;
         }
 

@@ -1,9 +1,13 @@
 #pragma once
+#include <tuple>
 
-#include <Texture_Material.hh>
 
 class Uniform_Texture : Texture_Material
 {
     public:
-        std::vector<int> properties(Point3 point);
+        std::tuple<float, float> properties(Point3 pos)
+        {
+            pos = pos;
+            return std::make_tuple(0.5, 0.5);
+        }
 };

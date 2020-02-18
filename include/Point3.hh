@@ -1,7 +1,5 @@
 #pragma once
 
-#include "include.hh"
-
 
 class Point3
 {
@@ -39,10 +37,10 @@ class Point3
         {
             return z_;
         }
+
         std::ostream& operator<<(std::ostream &out)
         {
-            return out
-                << "Point3("
+            return out << "Point3("
                 << x_
                 << ", "
                 << y_
@@ -56,5 +54,3 @@ class Point3
         float y_;
         float z_;
 };
-
-

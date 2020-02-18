@@ -1,6 +1,7 @@
 #pragma once
 
 #include <ostream>
+#include <iostream>
 #include "Point3.hh"
 #include "Vector3.hh"
 #include "ColorRGB.hh"
