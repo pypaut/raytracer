@@ -10,7 +10,12 @@ class Image:
         self.pixels = pixels
 
     def __str__(self):
-        return self.pixels
+        s = ""
+        for line in self.pixels:
+            for e in line:
+                s += f"{e} "
+            s += "\n"
+        return s
 
     def export_ppm(self, filename):
         """
@@ -20,7 +25,7 @@ class Image:
         file = open(filename, "w")
 
         # File header
-        header = "P3\n {self.W} {self.H}\n255\n"
+        header = f"P3\n {self.W} {self.H}\n255\n"
 
         # Pixels
         pix = ""
