@@ -1,3 +1,7 @@
+from Light import Light
+from Point3 import Point3
+
+
 class PointLight(Light):
     def __init__(self, x=0, y=0, z=0):
         """

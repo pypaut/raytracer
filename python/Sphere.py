@@ -1,3 +1,7 @@
+from Point3 import Point3
+from Object import Object
+
+
 class Sphere(Object):
     def __init__(self, pos=Point3(0, 0, 0), ray=1):
         self.pos = pos
@@ -20,16 +24,20 @@ class Sphere(Object):
         It is important to note that a, b and c described below
         are not the exact coefficients of the polynom (factorized version).
         """
-        b = vec.x * (pos.x - self.pos.x)
-            + vec.y * (pos.y - self.pos.y)
-            + vec.z * (pos.z - self.pos.z)
+        b = (
+                vec.x * (pos.x - self.pos.x)
+                + vec.y * (pos.y - self.pos.y)
+                + vec.z * (pos.z - self.pos.z)
+        )
 
         a = vec.x**2 + vec.y**2 + vec.z**2
 
-        c = (pos.x - self.pos.x)**2
-            + (pos.y - self.pos.y)**2
-            + (pos.z - self.pos.z)**2
-            - self.ray**2
+        c = (
+                (pos.x - self.pos.x)**2
+                + (pos.y - self.pos.y)**2
+                + (pos.z - self.pos.z)**2
+                - self.ray**2
+        )
 
         delta = 4 * (b**2 - a * c)
 
