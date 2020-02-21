@@ -3,6 +3,3 @@ class Scene:
         self.objects = objects
         self.lights = lights
         self.cam = cam
-
-    def buildImage(self):
-        pass

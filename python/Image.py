@@ -17,7 +17,7 @@ class Image:
             s += "\n"
         return s
 
-    def export_ppm(self, filename):
+    def exportPPM(self, filename):
         """
         Export the Image as .ppm file.
         Will overwrite <filename> with the generated file.

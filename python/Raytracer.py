@@ -1,4 +1,4 @@
 class Raycaster:
     @classmethod
-    def buildImage(scene):
+    def buildImage(scene, W, H):
         pass
