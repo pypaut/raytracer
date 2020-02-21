@@ -1,4 +1,4 @@
-class PointLight: Light
+class PointLight(Light):
     def __init__(self, pos):
         """
         Point3 pos : position
