@@ -1,3 +1,6 @@
+import math as m
+
+
 class Vector3:
     def __init__(self, x=0, y=0, z=0):
         self.x = x
@@ -34,6 +37,15 @@ class Vector3:
         """
         return self.x * vec.x + self.y * vec.y + self.z * vec.z
 
+    def cross(self, vec):
+        """
+        Cross product.
+        """
+        x = self.y * vec.z - self.z * vec.y
+        y = self.z * vec.x - self.x * vec.z
+        z = self.x * vec.y - self.y * vec.x
+        return Vector3(x, y, z)
+
     def times(self, t):
         """
         Product with a scalar.
@@ -42,3 +54,9 @@ class Vector3:
         y = t * self.y
         z = t * self.z
         return Vector3(x, y, z)
+
+    def norm(self):
+        return m.sqrt(self.x**2 + self.y**2 + self.z**2)
+
+    def normalized(self):
+        return self.times(1 / self.norm())
