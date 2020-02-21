@@ -4,6 +4,13 @@
 class ColorRGB
 {
     public:
+        ColorRGB()
+        {
+            R_ = 0;
+            G_ = 0;
+            B_ = 0;
+        }
+
         ColorRGB(int R, int G, int B)
         {
             R_ = R;

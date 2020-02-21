@@ -8,6 +8,7 @@ int main(int argc, char *argv[])
     int W = 600;
     int H = 600;
 
+    int pixels[600 * 600 * 3];
     std::vector<ColorRGB> pixels;
 
     for (int i = 0; i < W * H; ++i)
