@@ -9,9 +9,6 @@ from Vector3 import Vector3
 
 
 def main():
-    W = 600
-    H = 600
-
     s1 = Sphere()
     l1 = PointLight(0, 0, 5)
 
@@ -21,10 +18,12 @@ def main():
     camRf_x = 1
     camRf_y = 1
     camZ_min = 1
+    pixSize = 0.01
     cam = Camera(camPos, camFwd, camUp, camRf_x, camRf_y, camZ_min)
 
     scene = Scene([s1], [l1], cam)
-    im = Raytracer.buildImage(scene, W, H)
+    im = Raytracer.buildImage(scene, pixSize)
+    im.exportPPM("result.ppm")
 
 
 if __name__ == "__main__":
