@@ -3,9 +3,10 @@ from Object import Object
 
 
 class Sphere(Object):
-    def __init__(self, pos=Point3(0, 0, 0), ray=1):
+    def __init__(self, pos=Point3(0, 0, 0), ray=1, color=(255,255,255)):
         self.pos = pos
         self.ray = ray
+        self.color = color
 
     def intersects(self, pos, vec):
         """
