@@ -25,21 +25,21 @@ class Sphere(Object):
         are not the exact coefficients of the polynom (factorized version).
         """
         b = (
-                vec.x * (pos.x - self.pos.x)
-                + vec.y * (pos.y - self.pos.y)
-                + vec.z * (pos.z - self.pos.z)
+            vec.x * (pos.x - self.pos.x)
+            + vec.y * (pos.y - self.pos.y)
+            + vec.z * (pos.z - self.pos.z)
         )
 
-        a = vec.x**2 + vec.y**2 + vec.z**2
+        a = vec.x ** 2 + vec.y ** 2 + vec.z ** 2
 
         c = (
-                (pos.x - self.pos.x)**2
-                + (pos.y - self.pos.y)**2
-                + (pos.z - self.pos.z)**2
-                - self.ray**2
+            (pos.x - self.pos.x) ** 2
+            + (pos.y - self.pos.y) ** 2
+            + (pos.z - self.pos.z) ** 2
+            - self.ray ** 2
         )
 
-        delta = 4 * (b**2 - a * c)
+        delta = 4 * (b ** 2 - a * c)
 
         return delta >= 0
 
