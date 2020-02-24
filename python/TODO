@@ -1,4 +1,5 @@
 # TODO
 
 ## Bugtracker
-    [ ] - camPos doesn't impact ?
+    [X] - camPos doesn't impact ?
+    [/] - return intersection point ! and compute distance to it

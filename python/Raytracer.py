@@ -6,8 +6,6 @@ from Image import Image
 class Raytracer:
     @classmethod
     def buildImage(self, scene, pixSize):
-        """
-        """
         cam = scene.cam
         vecCamPos = Vector3(cam.pos.x, cam.pos.y, cam.pos.z)
         centerImageVec = vecCamPos + cam.fwd.times(cam.z_min)
@@ -21,13 +19,18 @@ class Raytracer:
         nbPixH = int(height // pixSize)
         nbPixW = int(width // pixSize)
 
+        print(cam.up)
+        print(cam.right)
+        print(cam.fwd)
+
         # Pixels
         pixels = []
 
         for i in range(nbPixH):
             line = []
             for j in range(nbPixW):
-                intersects = False
+                color = (0, 0, 0)
+                dist_min = -1
                 for obj in scene.objects:
                     pixPos = (
                         upperLeftImageVec
@@ -43,12 +46,15 @@ class Raytracer:
                         pixPos.y - cam.pos.y,
                         pixPos.z - cam.pos.z,
                     )
-                    if obj.intersects(cam.pos, rayDir):
-                        line.append(obj.color)  # FIXME : only keep the closest
-                        intersects = True
+                    cond = rayDir.dot(cam.fwd) >= 0
+                    pt = obj.intersects(cam.pos, rayDir)
+                    if pt and cond:
+                        dist = pt.dist(pixPos)
+                        if dist_min == -1 or dist <= dist_min:
+                            dist_min = dist
+                            color = obj.color
 
-                if not intersects:
-                    line.append((0, 0, 0))
+                line.append(color)
 
             pixels.append(line)
 
