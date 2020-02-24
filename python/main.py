@@ -9,7 +9,9 @@ from Vector3 import Vector3
 
 
 def main():
-    s1 = Sphere()
+    s1 = Sphere(Point3(0, -0.5, 0.5), ray=1, color=(255, 0, 0))
+    s2 = Sphere(Point3(0, -0.5, -0.5), ray=1, color=(0, 255, 0))
+    s3 = Sphere(Point3(0, 0.5, 0), ray=1, color=(0, 0, 255))
     l1 = PointLight(0, 0, 5)
 
     camPos = Point3(5, 0, 0)
@@ -21,8 +23,12 @@ def main():
     pixSize = 0.01
     cam = Camera(camPos, camFwd, camUp, camRf_x, camRf_y, camZ_min)
 
-    scene = Scene([s1], [l1], cam)
+    scene = Scene([s1, s2, s3], [l1], cam)
+
+    print("Building image...")
     im = Raytracer.buildImage(scene, pixSize)
+
+    print("Exporting...")
     im.exportPPM("result.ppm")
 
 
