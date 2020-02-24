@@ -1,5 +1,5 @@
 all: run
-	feh result.ppm
+	nomacs result.ppm
 
 run:
 	python3 main.py
