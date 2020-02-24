@@ -1,12 +1,17 @@
 from Point3 import Point3
 from Object import Object
+from Vector3 import Vector3
+import math as m
 
 
 class Sphere(Object):
-    def __init__(self, pos=Point3(0, 0, 0), ray=1, color=(255,255,255)):
+    def __init__(self, pos=Point3(0, 0, 0), ray=1, color=(255, 255, 255)):
         self.pos = pos
         self.ray = ray
         self.color = color
+
+    def __str__(self):
+        return f"Sphere(Pos({self.pos}), Ray({self.ray}), Color({self.color}))"
 
     def intersects(self, pos, vec):
         """
@@ -22,16 +27,16 @@ class Sphere(Object):
         We get a 2nd degree polynom with substitution method,
         and the answer we seek depends on the discriminant's sign.
 
-        It is important to note that a, b and c described below
-        are not the exact coefficients of the polynom (factorized version).
+        Return the intersection point, if any.
+        If there are two, we return the closest to pos.
         """
-        b = (
+        a = vec.x ** 2 + vec.y ** 2 + vec.z ** 2
+
+        b = 2 * (
             vec.x * (pos.x - self.pos.x)
             + vec.y * (pos.y - self.pos.y)
             + vec.z * (pos.z - self.pos.z)
         )
-
-        a = vec.x ** 2 + vec.y ** 2 + vec.z ** 2
 
         c = (
             (pos.x - self.pos.x) ** 2
@@ -40,9 +45,41 @@ class Sphere(Object):
             - self.ray ** 2
         )
 
-        delta = 4 * (b ** 2 - a * c)
+        delta = b ** 2 - 4 * a * c
 
-        return delta >= 0
+        if delta < 0:
+            return None
+
+        if delta == 0:  # Single solution
+            t = -b / (2 * a)
+            return Point3(
+                vec.x * t + pos.x, vec.y * t + pos.y, vec.z * t + pos.z,
+            )
+
+        # Two solutions
+        t1 = (-b - m.sqrt(delta)) / (2 * a)
+        t2 = (-b + m.sqrt(delta)) / (2 * a)
+
+        pt1 = Point3(
+            vec.x * t1 + pos.x, vec.y * t1 + pos.y, vec.z * t1 + pos.z,
+        )
+
+        pt2 = Point3(
+            vec.x * t2 + pos.x, vec.y * t2 + pos.y, vec.z * t2 + pos.z,
+        )
+
+        if pt1.dist(pos) < pt2.dist(pos):
+            return pt1
+        return pt2
+
+    def dist(self, vec):
+        """
+        Return the distance to a particular point.
+        """
+        v = Vector3(vec.x - self.pos.x, vec.y - self.pos.y, vec.z - self.pos.z)
+        if v.norm() < self.ray:
+            return 0
+        return v.norm() - self.ray
 
     def normal(pos):
         """
