@@ -19,10 +19,6 @@ class Raytracer:
         nbPixH = int(height // pixSize)
         nbPixW = int(width // pixSize)
 
-        print(cam.up)
-        print(cam.right)
-        print(cam.fwd)
-
         # Pixels
         pixels = []
 
@@ -31,26 +27,24 @@ class Raytracer:
             for j in range(nbPixW):
                 color = (0, 0, 0)
                 dist_min = -1
+                pixPos = (
+                    upperLeftImageVec
+                    + cam.right.times(i * pixSize)
+                    - cam.up.times(j * pixSize)
+                )
+                pixPos += cam.right.times(pixSize / 2) - cam.up.times(
+                    pixSize / 2
+                )
+                rayDir = Vector3(
+                    pixPos.x - cam.pos.x,
+                    pixPos.y - cam.pos.y,
+                    pixPos.z - cam.pos.z,
+                )
                 for obj in scene.objects:
-                    pixPos = (
-                        upperLeftImageVec
-                        + cam.right.times(i * pixSize)
-                        - cam.up.times(j * pixSize)
-                    )
-                    # Aim at center of pixel
-                    pixPos += cam.right.times(pixSize / 2) - cam.up.times(
-                        pixSize / 2
-                    )
-                    rayDir = Vector3(
-                        pixPos.x - cam.pos.x,
-                        pixPos.y - cam.pos.y,
-                        pixPos.z - cam.pos.z,
-                    )
-                    cond = rayDir.dot(cam.fwd) >= 0
                     pt = obj.intersects(cam.pos, rayDir)
-                    if pt and cond:
+                    if pt and cam.fwd.dot(Vector3(pt.x, pt.y, pt.z)) >= 0:
                         dist = pt.dist(pixPos)
-                        if dist_min == -1 or dist <= dist_min:
+                        if dist_min == -1 or dist < dist_min:
                             dist_min = dist
                             color = obj.color
 
