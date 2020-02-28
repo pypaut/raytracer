@@ -28,21 +28,14 @@ class Sphere(Object):
 
         Return the intersection point, if any.
         If there are two, we return the closest to pos.
+
+        a, b and c are the same as in ax**2 + b*x + c = 0.
         """
-        a = rayDir.x ** 2 + rayDir.y ** 2 + rayDir.z ** 2
+        vec = Vector3.buildDir(self.pos, rayPos)
 
-        b = 2 * (
-            rayDir.x * (rayPos.x - self.rayPos.x)
-            + rayDir.y * (rayPos.y - self.rayPos.y)
-            + rayDir.z * (rayPos.z - self.rayPos.z)
-        )
-
-        c = (
-            (rayPos.x - self.rayPos.x) ** 2
-            + (rayPos.y - self.rayPos.y) ** 2
-            + (rayPos.z - self.rayPos.z) ** 2
-            - self.ray ** 2
-        )
+        a = rayDir.dot(rayDir)
+        b = 2 * rayDir.dot(vec)
+        c = vec.dot(vec) - self.ray**2
 
         delta = b ** 2 - 4 * a * c
 
@@ -51,27 +44,15 @@ class Sphere(Object):
 
         if delta == 0:  # Single solution
             t = -b / (2 * a)
-            return Vector3(
-                rayDir.x * t + rayPos.x,
-                rayDir.y * t + rayPos.y,
-                rayDir.z * t + rayPos.z,
-            )
+            return rayDir.times(t) + rayPos
 
         # Two solutions
         t1 = (-b - m.sqrt(delta)) / (2 * a)
         t2 = (-b + m.sqrt(delta)) / (2 * a)
 
-        pt1 = Vector3(
-            rayDir.x * t1 + rayPos.x,
-            rayDir.y * t1 + rayPos.y,
-            rayDir.z * t1 + rayPos.z,
-        )
+        pt1 = rayDir.times(t1) + rayPos
+        pt2 = rayDir.times(t2) + rayPos
 
-        pt2 = Vector3(
-            rayDir.x * t2 + rayPos.x,
-            rayDir.y * t2 + rayPos.y,
-            rayDir.z * t2 + rayPos.z,
-        )
 
         if pt1.dist(rayPos) < pt2.dist(rayPos):
             return pt1
