@@ -39,7 +39,7 @@ class Raytracer:
                     pixPos.x - cam.pos.x,
                     pixPos.y - cam.pos.y,
                     pixPos.z - cam.pos.z,
-                )
+                ).normalized()
                 for obj in scene.objects:
                     pt = obj.intersects(cam.pos, rayDir)
                     if not pt:
