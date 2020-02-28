@@ -4,13 +4,19 @@ from PointLight import PointLight
 from Raytracer import Raytracer
 from Scene import Scene
 from Sphere import Sphere
+from Triangle import Triangle
 from Vector3 import Vector3
 
 
 def main():
+    x = Vector3(1, 0, 0)
+    y = Vector3(0, 1, 0)
+    z = Vector3(0, 0, 1)
+
     s1 = Sphere(Vector3(0, -0.5, 0.5), ray=1, color=(255, 0, 0))
     s2 = Sphere(Vector3(0, -0.5, -0.5), ray=1, color=(0, 255, 0))
     s3 = Sphere(Vector3(0, 0.5, 0), ray=1, color=(0, 0, 255))
+    t1 = Triangle(s1.pos + x, s2.pos + x, s3.pos + x)
     l1 = PointLight(0, 0, 5)
 
     camPos = Vector3(3, 0, 0)
@@ -22,7 +28,7 @@ def main():
     pixSize = 0.01
     cam = Camera(camPos, camFwd, camUp, camRf_x, camRf_y, camZ_min)
 
-    scene = Scene([s1, s2, s3], [l1], cam)
+    scene = Scene([s1, s2, s3, t1], [l1], cam)
 
     print("Building image...")
     im = Raytracer.buildImage(scene, pixSize)

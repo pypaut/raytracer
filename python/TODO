@@ -3,7 +3,7 @@
 ## Bugtracker
     [X] - camPos doesn't impact ?
     [X] - return intersection point ! and compute distance to it
-    [ ] - Fix negative dot product
+    [ ] - Fix negative dot product : only with Sphere ? Triangle is working.
 
 
 ## TP2

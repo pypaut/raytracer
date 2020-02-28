@@ -13,8 +13,10 @@ class Raytracer:
         height = 2 * cam.z_min * m.tan(cam.rf_y)
         width = 2 * cam.z_min * m.tan(cam.rf_x)
 
-        screenUpLeft = screenCenter + cam.up.times(height / 2) - cam.right.times(
-            width / 2
+        screenUpLeft = (
+            screenCenter
+            + cam.up.times(height / 2)
+            - cam.right.times(width / 2)
         )
         nbPixH = int(height // pixSize)
         nbPixW = int(width // pixSize)
@@ -45,7 +47,9 @@ class Raytracer:
                     if not pt:
                         continue
                     # Check if object is after the screen
-                    dir_cond = pt and cam.fwd.dot(Vector3(pt.x, pt.y, pt.z)) <= 0 # ???
+                    dir_cond = (
+                        pt and cam.fwd.dot(Vector3(pt.x, pt.y, pt.z)) >= 0
+                    )  # ???
                     pos_cond = cam.pos.dist(pt) >= cam.pos.dist(pixPos)
                     if dir_cond and pos_cond:
                         dist = pt.dist(pixPos)
