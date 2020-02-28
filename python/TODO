@@ -2,4 +2,10 @@
 
 ## Bugtracker
     [X] - camPos doesn't impact ?
-    [/] - return intersection point ! and compute distance to it
+    [X] - return intersection point ! and compute distance to it
+    [ ] - Fix negative dot product
+
+
+## TP2
+    [ ] - Triangles(Object)
+    [ ] - Blob

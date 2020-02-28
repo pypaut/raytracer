@@ -8,12 +8,12 @@ class Raytracer:
     def buildImage(self, scene, pixSize):
         cam = scene.cam
         vecCamPos = Vector3(cam.pos.x, cam.pos.y, cam.pos.z)
-        centerImageVec = vecCamPos + cam.fwd.times(cam.z_min)
+        screenCenter = vecCamPos + cam.fwd.times(cam.z_min)
 
         height = 2 * cam.z_min * m.tan(cam.rf_y)
         width = 2 * cam.z_min * m.tan(cam.rf_x)
 
-        upperLeftImageVec = cam.up.times(height / 2) - cam.right.times(
+        screenUpLeft = screenCenter + cam.up.times(height / 2) - cam.right.times(
             width / 2
         )
         nbPixH = int(height // pixSize)
@@ -28,7 +28,7 @@ class Raytracer:
                 color = (0, 0, 0)
                 dist_min = -1
                 pixPos = (
-                    upperLeftImageVec
+                    screenUpLeft
                     + cam.right.times(i * pixSize)
                     - cam.up.times(j * pixSize)
                 )
@@ -42,14 +42,18 @@ class Raytracer:
                 )
                 for obj in scene.objects:
                     pt = obj.intersects(cam.pos, rayDir)
-                    if pt and cam.fwd.dot(Vector3(pt.x, pt.y, pt.z)) >= 0:
+                    if not pt:
+                        continue
+                    # Check if object is after the screen
+                    dir_cond = pt and cam.fwd.dot(Vector3(pt.x, pt.y, pt.z)) <= 0 # ???
+                    pos_cond = cam.pos.dist(pt) >= cam.pos.dist(pixPos)
+                    if dir_cond and pos_cond:
                         dist = pt.dist(pixPos)
                         if dist_min == -1 or dist < dist_min:
                             dist_min = dist
                             color = obj.color
 
                 line.append(color)
-
             pixels.append(line)
 
         return Image(nbPixW, nbPixH, pixels)
