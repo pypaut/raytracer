@@ -12,7 +12,7 @@ class Sphere(Object):
     def __str__(self):
         return f"Sphere(Pos({self.pos}), Ray({self.ray}), Color({self.color}))"
 
-    def intersects(self, pos, vec):
+    def intersects(self, rayPos, rayDir):
         """
         ** Proof **
         Line :
@@ -29,18 +29,18 @@ class Sphere(Object):
         Return the intersection point, if any.
         If there are two, we return the closest to pos.
         """
-        a = vec.x ** 2 + vec.y ** 2 + vec.z ** 2
+        a = rayDir.x ** 2 + rayDir.y ** 2 + rayDir.z ** 2
 
         b = 2 * (
-            vec.x * (pos.x - self.pos.x)
-            + vec.y * (pos.y - self.pos.y)
-            + vec.z * (pos.z - self.pos.z)
+            rayDir.x * (rayPos.x - self.rayPos.x)
+            + rayDir.y * (rayPos.y - self.rayPos.y)
+            + rayDir.z * (rayPos.z - self.rayPos.z)
         )
 
         c = (
-            (pos.x - self.pos.x) ** 2
-            + (pos.y - self.pos.y) ** 2
-            + (pos.z - self.pos.z) ** 2
+            (rayPos.x - self.rayPos.x) ** 2
+            + (rayPos.y - self.rayPos.y) ** 2
+            + (rayPos.z - self.rayPos.z) ** 2
             - self.ray ** 2
         )
 
@@ -52,7 +52,9 @@ class Sphere(Object):
         if delta == 0:  # Single solution
             t = -b / (2 * a)
             return Vector3(
-                vec.x * t + pos.x, vec.y * t + pos.y, vec.z * t + pos.z,
+                rayDir.x * t + rayPos.x,
+                rayDir.y * t + rayPos.y,
+                rayDir.z * t + rayPos.z,
             )
 
         # Two solutions
@@ -60,14 +62,18 @@ class Sphere(Object):
         t2 = (-b + m.sqrt(delta)) / (2 * a)
 
         pt1 = Vector3(
-            vec.x * t1 + pos.x, vec.y * t1 + pos.y, vec.z * t1 + pos.z,
+            rayDir.x * t1 + rayPos.x,
+            rayDir.y * t1 + rayPos.y,
+            rayDir.z * t1 + rayPos.z,
         )
 
         pt2 = Vector3(
-            vec.x * t2 + pos.x, vec.y * t2 + pos.y, vec.z * t2 + pos.z,
+            rayDir.x * t2 + rayPos.x,
+            rayDir.y * t2 + rayPos.y,
+            rayDir.z * t2 + rayPos.z,
         )
 
-        if pt1.dist(pos) < pt2.dist(pos):
+        if pt1.dist(rayPos) < pt2.dist(rayPos):
             return pt1
         return pt2
 
