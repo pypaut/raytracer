@@ -35,7 +35,7 @@ class Sphere(Object):
 
         a = rayDir.dot(rayDir)
         b = 2 * rayDir.dot(vec)
-        c = vec.dot(vec) - self.ray**2
+        c = vec.dot(vec) - self.ray ** 2
 
         delta = b ** 2 - 4 * a * c
 
@@ -52,7 +52,6 @@ class Sphere(Object):
 
         pt1 = rayDir.times(t1) + rayPos
         pt2 = rayDir.times(t2) + rayPos
-
 
         if pt1.dist(rayPos) < pt2.dist(rayPos):
             return pt1

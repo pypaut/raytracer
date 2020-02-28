@@ -60,16 +60,11 @@ class Vector3:
         return Vector3(x, y, z)
 
     def norm(self):
-        return m.sqrt(self.x**2 + self.y**2 + self.z**2)
+        return m.sqrt(self.x ** 2 + self.y ** 2 + self.z ** 2)
 
     def normalized(self):
         return self.times(1 / self.norm())
 
     def dist(self, pt):
-        vec = Vector3(
-            self.x - pt.x,
-            self.y - pt.y,
-            self.z - pt.z
-        )
+        vec = Vector3(self.x - pt.x, self.y - pt.y, self.z - pt.z)
         return vec.norm()
-

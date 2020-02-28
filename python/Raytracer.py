@@ -14,9 +14,7 @@ class Raytracer:
         width = 2 * cam.z_min * m.tan(cam.rf_x)
 
         screenUpLeft = (
-            screenCenter
-            + cam.up.times(height / 2)
-            - cam.right.times(width / 2)
+            screenCenter + cam.up.times(height / 2) - cam.right.times(width / 2)
         )
         nbPixH = int(height // pixSize)
         nbPixW = int(width // pixSize)
@@ -37,11 +35,7 @@ class Raytracer:
                 pixPos += cam.right.times(pixSize / 2) - cam.up.times(
                     pixSize / 2
                 )
-                rayDir = Vector3(
-                    pixPos.x - cam.pos.x,
-                    pixPos.y - cam.pos.y,
-                    pixPos.z - cam.pos.z,
-                ).normalized()
+                rayDir = Vector3.buildDir(cam.pos, pixPos).normalized()
                 for obj in scene.objects:
                     pt = obj.intersects(pixPos, rayDir)
                     if not pt:
