@@ -31,6 +31,10 @@ class Vector3:
         z = self.z - vec.z
         return Vector3(x, y, z)
 
+    @classmethod
+    def buildDir(self, pt1, pt2):
+        return Vector3(pt2.x - pt1.x, pt2.y - pt1.y, pt2.z - pt1.z)
+
     def dot(self, vec):
         """
         Dot product.
