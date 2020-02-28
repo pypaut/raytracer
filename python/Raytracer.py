@@ -43,13 +43,12 @@ class Raytracer:
                     pixPos.z - cam.pos.z,
                 ).normalized()
                 for obj in scene.objects:
-                    pt = obj.intersects(cam.pos, rayDir)
+                    pt = obj.intersects(pixPos, rayDir)
                     if not pt:
                         continue
                     # Check if object is after the screen
-                    dir_cond = (
-                        pt and cam.fwd.dot(Vector3(pt.x, pt.y, pt.z)) >= 0
-                    )  # ???
+                    objDir = Vector3.buildDir(pixPos, pt)
+                    dir_cond = pt and cam.fwd.dot(objDir) >= 0
                     pos_cond = cam.pos.dist(pt) >= cam.pos.dist(pixPos)
                     if dir_cond and pos_cond:
                         dist = pt.dist(pixPos)
