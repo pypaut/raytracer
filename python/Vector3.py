@@ -60,3 +60,12 @@ class Vector3:
 
     def normalized(self):
         return self.times(1 / self.norm())
+
+    def dist(self, pt):
+        vec = Vector3(
+            self.x - pt.x,
+            self.y - pt.y,
+            self.z - pt.z
+        )
+        return vec.norm()
+

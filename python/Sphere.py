@@ -1,11 +1,10 @@
-from Point3 import Point3
 from Object import Object
 from Vector3 import Vector3
 import math as m
 
 
 class Sphere(Object):
-    def __init__(self, pos=Point3(0, 0, 0), ray=1, color=(255, 255, 255)):
+    def __init__(self, pos=Vector3(0, 0, 0), ray=1, color=(255, 255, 255)):
         self.pos = pos
         self.ray = ray
         self.color = color
@@ -52,7 +51,7 @@ class Sphere(Object):
 
         if delta == 0:  # Single solution
             t = -b / (2 * a)
-            return Point3(
+            return Vector3(
                 vec.x * t + pos.x, vec.y * t + pos.y, vec.z * t + pos.z,
             )
 
@@ -60,11 +59,11 @@ class Sphere(Object):
         t1 = (-b - m.sqrt(delta)) / (2 * a)
         t2 = (-b + m.sqrt(delta)) / (2 * a)
 
-        pt1 = Point3(
+        pt1 = Vector3(
             vec.x * t1 + pos.x, vec.y * t1 + pos.y, vec.z * t1 + pos.z,
         )
 
-        pt2 = Point3(
+        pt2 = Vector3(
             vec.x * t2 + pos.x, vec.y * t2 + pos.y, vec.z * t2 + pos.z,
         )
 

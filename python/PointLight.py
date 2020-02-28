@@ -1,5 +1,5 @@
 from Light import Light
-from Point3 import Point3
+from Vector3 import Vector3
 
 
 class PointLight(Light):
@@ -7,4 +7,4 @@ class PointLight(Light):
         """
         Point3 pos : position
         """
-        self.pos = Point3(x, y, z)
+        self.pos = Vector3(x, y, z)
