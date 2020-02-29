@@ -66,7 +66,7 @@ class Sphere(Object):
             return 0
         return v.norm() - self.ray
 
-    def normal(pos):
+    def normal(self, pos):
         """
         Return a normal vector to the surface of the sphere at
         the point position.

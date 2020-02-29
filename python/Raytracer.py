@@ -36,6 +36,7 @@ class Raytracer:
                     pixSize / 2
                 )
                 rayDir = Vector3.buildDir(cam.pos, pixPos).normalized()
+                # Color
                 for obj in scene.objects:
                     pt = obj.intersects(pixPos, rayDir)
                     if not pt:
@@ -49,6 +50,17 @@ class Raytracer:
                         if dist_min == -1 or dist < dist_min:
                             dist_min = dist
                             color = obj.color
+                            # Diffuse component
+                            diffuseComp = 0
+                            for light in scene.lights:
+                                L = Vector3.buildDir(pt, light.pos)
+                                obj.k_d = 1
+                                diffuseComp += obj.k_d * obj.normal(pt).dot(L) * light.intensity(pt)
+                                color = (
+                                            color[0] * diffuseComp % 255,
+                                            color[1] * diffuseComp % 255,
+                                            color[2] * diffuseComp % 255
+                                )
 
                 line.append(color)
             pixels.append(line)
