@@ -71,10 +71,7 @@ class Sphere(Object):
         Return a normal vector to the surface of the sphere at
         the point position.
         """
-        x = pos.x - self.pos.x
-        y = pos.y - self.pos.y
-        z = pos.z - self.pos.z
-        return Vector(x, y, z).normalized()
+        return Vector3.buildDir(self.pos, pos).normalized()
 
     def getMaterial(pos):
         pos = pos
