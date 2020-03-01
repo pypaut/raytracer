@@ -28,18 +28,21 @@ class Image:
         header = f"P3\n {self.W} {self.H}\n255\n"
 
         # Pixels
-        pix = ""
+        pixels = ""
         for i in range(self.H):
             for j in range(self.W):
                 # Zero padding
-                s_R = f"{self.pixels[i][j][0]:03}"
-                s_G = f"{self.pixels[i][j][1]:03}"
-                s_B = f"{self.pixels[i][j][2]:03}"
-                pix += f"{s_R} {s_G} {s_B}   "
-            pix += "\n"
+                s_R = f"{self.pixels[i][j][0]}"
+                s_G = f"{self.pixels[i][j][1]}"
+                s_B = f"{self.pixels[i][j][2]}"
+                pix = f"{s_R} {s_G} {s_B}"
+                pixels += pix
+                if j != self.W - 1:
+                    pixels += "   "
+            pixels += "\n"
 
         # Write
-        text = header + pix
+        text = header + pixels
         file.write(text)
 
         file.close()
