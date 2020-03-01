@@ -4,7 +4,10 @@
     [X] - camPos doesn't impact ?
     [X] - return intersection point ! and compute distance to it
     [X] - Fix negative dot product : only with Sphere ? Triangle is working.
+    [ ] - Broken PPM export (test with feh)
 
+## TP1
+    [ ] - Diffuse component
 
 ## TP2
     [X] - Triangles(Object)

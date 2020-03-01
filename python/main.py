@@ -13,14 +13,15 @@ def main():
     y = Vector3(0, 1, 0)
     z = Vector3(0, 0, 1)
 
+    s0 = Sphere(Vector3(0, 0, 0), ray=1)
     s1 = Sphere(Vector3(0, -0.5, 0.5), ray=1, color=(255, 0, 0))
     s2 = Sphere(Vector3(0, -0.5, -0.5), ray=1, color=(0, 255, 0))
     s3 = Sphere(Vector3(0, 0.5, 0), ray=1, color=(0, 0, 255))
     t1 = Triangle(s1.pos - x.times(3), s2.pos - x.times(3), s3.pos - x.times(3))
-    l1 = PointLight(0, 0, 5)
+    l1 = PointLight(0, 5, 0)
 
-    camPos = Vector3(0, 5, 0)
-    camFwd = Vector3(0, -1, 0)
+    camPos = Vector3(5, 0, 0)
+    camFwd = Vector3(-1, 0, 0)
     camUp = Vector3(0, 0, 1)
     camRf_x = 1
     camRf_y = 1

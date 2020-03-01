@@ -14,7 +14,9 @@ class Raytracer:
         width = 2 * cam.z_min * m.tan(cam.rf_x)
 
         screenUpLeft = (
-            screenCenter + cam.up.times(height / 2) - cam.right.times(width / 2)
+            screenCenter
+            + cam.up.times(height / 2)
+            - cam.right.times(width / 2)
         )
         nbPixH = int(height // pixSize)
         nbPixW = int(width // pixSize)
@@ -47,21 +49,30 @@ class Raytracer:
                     pos_cond = cam.pos.dist(pt) >= cam.pos.dist(pixPos)
                     if dir_cond and pos_cond:
                         dist = pt.dist(pixPos)
-                        if dist_min == -1 or dist < dist_min:
+                        if (
+                            dist_min == -1 or dist < dist_min
+                        ):  # This point is closer
                             dist_min = dist
                             color = obj.color
                             # Diffuse component
                             diffuseComp = 0
                             for light in scene.lights:
-                                L = Vector3.buildDir(pt, light.pos)
+                                L = Vector3.buildDir(
+                                    pt, light.pos
+                                ).normalized()
                                 obj.k_d = 1
-                                diffuseComp += obj.k_d * obj.normal(pt).dot(L) * light.intensity(pt)
-                                color = (
-                                            color[0] * diffuseComp % 255,
-                                            color[1] * diffuseComp % 255,
-                                            color[2] * diffuseComp % 255
+                                diffuseComp += (
+                                    obj.k_d
+                                    * obj.normal(pt).dot(L)
+                                    * light.intensity(pt)
                                 )
+                            color = (
+                                color[0] * diffuseComp % 255,
+                                color[1] * diffuseComp % 255,
+                                color[2] * diffuseComp % 255,
+                            )
 
+                color = (int(color[0]), int(color[1]), int(color[2]))
                 line.append(color)
             pixels.append(line)
 
