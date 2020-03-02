@@ -57,19 +57,26 @@ class Raytracer:
                             # Diffuse component
                             diffuseComp = 0
                             for light in scene.lights:
+                                # IMPORTANT
+                                # Everything normalized, ending up with a [0,1]
+                                # coefficient. This will efficiently scale the
+                                # rendered color.
                                 L = Vector3.buildDir(
                                     pt, light.pos
                                 ).normalized()
                                 obj.k_d = 1
-                                diffuseComp += (
+                                add = (
                                     obj.k_d
                                     * obj.normal(pt).dot(L)
                                     * light.intensity(pt)
                                 )
+                                if add < 0:
+                                    add = 0
+                                diffuseComp += add
                             color = (
-                                color[0] * diffuseComp % 255,
-                                color[1] * diffuseComp % 255,
-                                color[2] * diffuseComp % 255,
+                                color[0] * diffuseComp,
+                                color[1] * diffuseComp,
+                                color[2] * diffuseComp,
                             )
 
                 color = (int(color[0]), int(color[1]), int(color[2]))
