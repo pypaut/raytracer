@@ -8,8 +8,14 @@
     [ ] - Very dim light when on side
 
 ## TP1
-    [/] - Diffuse component
+    [X] - Diffuse component
+    [X] - Specular component
+    [ ] - k_s, k_d, n_s coef
 
 ## TP2
     [X] - Triangles(Object)
     [ ] - Blob
+
+## General
+    [ ] - Input format : JSON, YAML...
+    [ ] - 
