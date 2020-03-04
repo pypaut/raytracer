@@ -22,11 +22,11 @@ class Raytracer:
         return dir_cond and pos_cond
 
     @classmethod
-    def applyDiffuseComp(self, color, diffuseComp):
+    def applyLightComp(self, color, diffuseComp, specularComp):
         return (
-            color[0] * diffuseComp,
-            color[1] * diffuseComp,
-            color[2] * diffuseComp,
+            color[0] * diffuseComp * specularComp,
+            color[1] * diffuseComp * specularComp,
+            color[2] * diffuseComp * specularComp,
         )
 
     @classmethod
@@ -38,14 +38,30 @@ class Raytracer:
         rendered color.
         """
         diffuseComp = 0
+        obj.k_d = 1  # TODO
         for light in lights:
             L = Vector3.buildDir(pt, light.pos).normalized()
-            obj.k_d = 1  # TODO
             add = obj.k_d * obj.normal(pt).dot(L) * light.intensity(pt)
             if add < 0:
                 add = 0
             diffuseComp += add
         return diffuseComp
+
+    @classmethod
+    def computeSpecular(self, obj, pt, lights, cam):
+        specularComp = 0
+        obj.k_s = 1
+        obj.n_s = 1
+        for light in lights:
+            L = Vector3.buildDir(pt, light.pos).normalized()
+            N = obj.normal(pt)
+            R_i = Vector3.buildDir(cam.pos, pt).normalized()
+            R_r = (R_i - N.times(2 * N.dot(R_i))).normalized()
+            add = obj.k_s * light.intensity(pt) * (R_r.dot(L)) ** obj.n_s
+            if add < 0:
+                add = 0
+            specularComp += add
+        return specularComp
 
     @classmethod
     def buildImage(self, scene, pixSize):
@@ -89,7 +105,12 @@ class Raytracer:
                             diffuseComp = self.computeDiffuse(
                                 obj, pt, scene.lights
                             )
-                            color = self.applyDiffuseComp(color, diffuseComp)
+                            specularComp = self.computeSpecular(
+                                obj, pt, scene.lights, cam
+                            )
+                            color = self.applyLightComp(
+                                color, diffuseComp, specularComp
+                            )
 
                 color = (int(color[0]), int(color[1]), int(color[2]))
                 line.append(color)
