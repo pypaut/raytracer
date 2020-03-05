@@ -3,11 +3,14 @@ from Vector3 import Vector3
 
 
 class Triangle(Object):
-    def __init__(self, v1, v2, v3, color=(255, 255, 255)):
+    def __init__(self, v1, v2, v3, color=(255, 255, 255), k_d=1, k_s=1, n_s=1):
         self.v1 = v1
         self.v2 = v2
         self.v3 = v3
         self.color = color
+        self.k_d = k_d
+        self.k_s = k_s
+        self.n_s = n_s
 
     def __str__(self):
         return f"Triangle({self.v1}, {self.v2}, {self.v3})"

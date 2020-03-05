@@ -13,15 +13,27 @@ def main():
     y = Vector3(0, 1, 0)
     z = Vector3(0, 0, 1)
 
-    s0 = Sphere(Vector3(0, 0, 0), ray=1)
-    s1 = Sphere(Vector3(0, -0.5, 0.5), ray=1, color=(255, 0, 0))
-    s2 = Sphere(Vector3(0, -0.5, -0.5), ray=1, color=(0, 255, 0))
-    s3 = Sphere(Vector3(0, 0.5, 0), ray=1, color=(0, 0, 255))
-    t1 = Triangle(s1.pos - x.times(3), s2.pos - x.times(3), s3.pos - x.times(3))
-    l1 = PointLight(0, 5, 0)
+    s_floor = Sphere(
+        Vector3(0, 50, 0), ray=50, color=(10, 10, 10), k_d=10, k_s=1, n_s=1
+    )
+    s_white = Sphere(Vector3(5, 0, 0), ray=3)
+    s_red = Sphere(Vector3(0, -1, 0), ray=1, color=(255, 0, 0))
+    s_green = Sphere(Vector3(0, -1, -5), ray=1, color=(0, 255, 0))
+    s_blue = Sphere(Vector3(-5, -1, 0), ray=1, color=(0, 0, 255))
+    t1 = Triangle(
+        Vector3(20, 5, 10),
+        Vector3(20, -10, 0),
+        Vector3(20, 5, -10),
+        color=(255, 255, 0),
+        k_d=1,
+        k_s=5,
+        n_s=5,
+    )
 
-    camPos = Vector3(5, 0, 0)
-    camFwd = Vector3(-1, 0, 0)
+    l4 = PointLight(10, -10, 10)
+
+    camPos = Vector3(10, -10, 0)
+    camFwd = Vector3(-1, 1, 0)
     camUp = Vector3(0, 0, 1)
     camRf_x = 1
     camRf_y = 1
@@ -29,7 +41,7 @@ def main():
     pixSize = 0.01
     cam = Camera(camPos, camFwd, camUp, camRf_x, camRf_y, camZ_min)
 
-    scene = Scene([s1, s2, s3, t1], [l1], cam)
+    scene = Scene([s_floor, s_white, s_red, s_green, s_blue, t1], [l4], cam)
 
     print("Building image...")
     im = Raytracer.buildImage(scene, pixSize)

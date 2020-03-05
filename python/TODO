@@ -5,12 +5,12 @@
     [X] - return intersection point ! and compute distance to it
     [X] - Fix negative dot product : only with Sphere ? Triangle is working.
     [/] - Broken PPM export (test with feh)
-    [ ] - Very dim light when on side
+    [X] - Very dim light when on side
 
 ## TP1
     [X] - Diffuse component
     [X] - Specular component
-    [ ] - k_s, k_d, n_s coef
+    [X] - k_s, k_d, n_s coef
 
 ## TP2
     [X] - Triangles(Object)
@@ -18,4 +18,3 @@
 
 ## General
     [ ] - Input format : JSON, YAML...
-    [ ] - 

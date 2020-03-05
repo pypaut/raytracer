@@ -23,10 +23,20 @@ class Raytracer:
 
     @classmethod
     def applyLightComp(self, color, diffuseComp, specularComp):
+        ambiantComp = 10
         return (
-            color[0] * diffuseComp * specularComp,
-            color[1] * diffuseComp * specularComp,
-            color[2] * diffuseComp * specularComp,
+            max(
+                min(color[0] * diffuseComp + specularComp + ambiantComp, 255),
+                0,
+            ),
+            max(
+                min(color[1] * diffuseComp + specularComp + ambiantComp, 255),
+                0,
+            ),
+            max(
+                min(color[2] * diffuseComp + specularComp + ambiantComp, 255),
+                0,
+            ),
         )
 
     @classmethod
@@ -38,7 +48,6 @@ class Raytracer:
         rendered color.
         """
         diffuseComp = 0
-        obj.k_d = 1  # TODO
         for light in lights:
             L = Vector3.buildDir(pt, light.pos).normalized()
             add = obj.k_d * obj.normal(pt).dot(L) * light.intensity(pt)
@@ -50,8 +59,6 @@ class Raytracer:
     @classmethod
     def computeSpecular(self, obj, pt, lights, cam):
         specularComp = 0
-        obj.k_s = 1
-        obj.n_s = 1
         for light in lights:
             L = Vector3.buildDir(pt, light.pos).normalized()
             N = obj.normal(pt)

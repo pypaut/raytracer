@@ -4,10 +4,13 @@ import math as m
 
 
 class Sphere(Object):
-    def __init__(self, pos=Vector3(0, 0, 0), ray=1, color=(255, 255, 255)):
+    def __init__(self, pos=Vector3(0, 0, 0), ray=1, color=(255, 255, 255), k_d=1, k_s=1, n_s=1):
         self.pos = pos
         self.ray = ray
         self.color = color
+        self.k_d = k_d
+        self.k_s = k_s
+        self.n_s = n_s
 
     def __str__(self):
         return f"Sphere(Pos({self.pos}), Ray({self.ray}), Color({self.color}))"
