@@ -1,3 +1,4 @@
 cpp/raytracer
 __pycache__
 *.ppm
+target
